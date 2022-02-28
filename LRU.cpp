@@ -1,34 +1,18 @@
-// stl implementation of LRU alg, modified from: https://www.geeksforgeeks.org/lru-cache-implementation/
-#include <list>
-#include <unordered_map> 
-#include <iostream>
-using namespace std;
-
-class LRUCache {
-	// store keys of cache
-	list<int> dq;
-
-	// store references of key in cache
-	unordered_map<int, list<int>::iterator> ma;
-	int csize; // maximum capacity of cache
-
-public:
-	LRUCache(int);
-	void refer(int);
-	void display();
-};
+#include "LRU.h"
 
 // Declare the size
-LRUCache::LRUCache(int n)
-{
+LRUCache::LRUCache(int n){
 	csize = n;
+	requests = 0;
+	misses = 0;
 }
 
-// Refers key x with in the LRU cache
-void LRUCache::refer(int x)
-{
+// requests page x with in the LRU cache
+void LRUCache::request(int x){
+	requests++;
 	// not present in cache
 	if (ma.find(x) == ma.end()) {
+		misses++;
 		// cache is full
 		if (dq.size() == csize) {
 			// delete least recently used element
@@ -46,14 +30,13 @@ void LRUCache::refer(int x)
 	else
 		dq.erase(ma[x]);
 
-	// update reference
+	// update requests
 	dq.push_front(x);
 	ma[x] = dq.begin();
 }
 
 // Function to display contents of cache
-void LRUCache::display()
-{
+void LRUCache::display(){
 
 	// Iterate in the deque and print
 	// all the elements in it
@@ -63,21 +46,7 @@ void LRUCache::display()
 
 	cout << endl;
 }
-
-// Driver Code
-int main()
-{
-	LRUCache ca(4);
-
-	ca.refer(1);
-	ca.refer(2);
-	ca.refer(3);
-	ca.refer(1);
-	ca.refer(4);
-	ca.refer(5);
-	ca.display();
-
-	return 0;
+void LRUCache::printMR(){
+	cout<<((double)misses)/requests<<endl;
 }
-// This code is contributed by Satish Srinivas
 
