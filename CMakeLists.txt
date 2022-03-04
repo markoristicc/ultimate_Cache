@@ -5,7 +5,11 @@ set(CMAKE_CXX_STANDARD 14)
 
 include_directories(.)
 
-add_executable(LRUtest
-        LRU.cpp
-        LRU.h
-        LRUtest.cpp)
+add_executable(
+    tests
+    LRU.cpp
+    LRU.h
+    RR.cpp
+    RR.h
+    tests.cpp
+)
