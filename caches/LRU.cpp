@@ -1,18 +1,18 @@
 #include "LRU.h"
 
+#include <iostream>
+
 // Declare the size
-LRUCache::LRUCache(int n) {
-  csize = n;
-  requests = 0;
-  misses = 0;
-}
+LRU::LRU(int n) : csize(n) {}
 
 // requests page x with in the LRU cache
-void LRUCache::request(int x) {
-  requests++;
+bool LRU::request(int x) {
+  bool missed = false;
+
   // not present in cache
   if (ma.find(x) == ma.end()) {
-    misses++;
+    missed = true;
+
     // cache is full
     if (dq.size() == csize) {
       // delete least recently used element
@@ -24,30 +24,23 @@ void LRUCache::request(int x) {
       // Erase the last
       ma.erase(last);
     }
-  }
-
-    // present in cache
-  else
+  } else { // present in cache
     dq.erase(ma[x]);
+  }
 
   // update requests
   dq.push_front(x);
   ma[x] = dq.begin();
+
+  return missed;
 }
 
 // Function to display contents of cache
-void LRUCache::display() {
-
+void LRU::print_entries() {
   // Iterate in the deque and print
   // all the elements in it
-  for (auto it = dq.begin(); it != dq.end();
-       it++)
-    cout << (*it) << " ";
+  for (const auto &it: dq)
+    std::cout << it << " ";
 
-  cout << endl;
+  std::cout << std::endl;
 }
-
-void LRUCache::printMR() {
-  cout << ((double) misses) / requests << endl;
-}
-
