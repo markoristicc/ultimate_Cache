@@ -1,8 +1,6 @@
 #ifndef ULTIMATE_CACHE_TESTER_H
 #define ULTIMATE_CACHE_TESTER_H
 
-#include "cache.h"
-
 #include <vector>
 #include <set>
 

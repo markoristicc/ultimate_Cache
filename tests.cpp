@@ -12,9 +12,10 @@
 void test_LRU(int capacity) {
   auto _seq = gen_request_seq(2000, 10000);
 
-  ImplTester<LRU> _lru{LRU{capacity}};
-  _lru.test(_seq);
-  std::cout << "LRU: " << _lru.miss_ratio() << std::endl;
+  LRU _lru{capacity};
+  ImplTester _lru_tester{&_lru};
+  _lru_tester.test(_seq);
+  std::cout << "LRU: " << _lru_tester.miss_ratio() << std::endl;
 
   BeladyTester _belady{capacity};
   _belady.test(_seq);
@@ -24,9 +25,10 @@ void test_LRU(int capacity) {
 void test_RR(int capacity) {
   auto _seq = gen_request_seq(2000, 10000);
 
-  ImplTester<RR> _rr{RR{capacity}};
-  _rr.test(_seq);
-  std::cout << "RR: " << _rr.miss_ratio() << std::endl;
+  RR _rr{capacity};
+  ImplTester _rr_tester{&_rr};
+  _rr_tester.test(_seq);
+  std::cout << "RR: " << _rr_tester.miss_ratio() << std::endl;
 
   BeladyTester _belady{capacity};
   _belady.test(_seq);
@@ -36,9 +38,10 @@ void test_RR(int capacity) {
 void test_RLRU(int capacity) {
   auto _seq = gen_request_seq(2000, 10000);
 
-  ImplTester<RLRU> _rlru{RLRU{capacity}};
-  _rlru.test(_seq);
-  std::cout << "RLRU: " << _rlru.miss_ratio() << std::endl;
+  RLRU _rlru{capacity};
+  ImplTester _rlru_tester{&_rlru};
+  _rlru_tester.test(_seq);
+  std::cout << "RLRU: " << _rlru_tester.miss_ratio() << std::endl;
 
   BeladyTester _belady{capacity};
   _belady.test(_seq);
@@ -48,17 +51,20 @@ void test_RLRU(int capacity) {
 void test_all(int capacity, int k, int m) {
   auto _seq = gen_request_seq(k, m);
 
-  ImplTester<LRU> _lru{LRU{capacity}};
-  _lru.test(_seq);
-  std::cout << "LRU: " << _lru.miss_ratio() << std::endl;
+  LRU _lru{capacity};
+  ImplTester _lru_tester{&_lru};
+  _lru_tester.test(_seq);
+  std::cout << "LRU: " << _lru_tester.miss_ratio() << std::endl;
 
-  ImplTester<RLRU> _rlru{RLRU{capacity}};
-  _rlru.test(_seq);
-  std::cout << "RLRU: " << _rlru.miss_ratio() << std::endl;
+  RLRU _rlru{capacity};
+  ImplTester _rlru_tester{&_rlru};
+  _rlru_tester.test(_seq);
+  std::cout << "RLRU: " << _rlru_tester.miss_ratio() << std::endl;
 
-  ImplTester<RR> _rr{RR{capacity}};
-  _rr.test(_seq);
-  std::cout << "RR: " << _rr.miss_ratio() << std::endl;
+  RR _rr{capacity};
+  ImplTester _rr_tester{&_rr};
+  _rr_tester.test(_seq);
+  std::cout << "RR: " << _rr_tester.miss_ratio() << std::endl;
 
   BeladyTester _belady{capacity};
   _belady.test(_seq);
