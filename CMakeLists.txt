@@ -6,15 +6,13 @@ set(CMAKE_CXX_STANDARD 14)
 include_directories(.)
 
 add_executable(
-        tests
+        main
 
         caches/cache.h
         caches/MRU.cpp
         caches/MRU.h
         caches/LFU.cpp
         caches/LFU.h
-        caches/ULT.cpp
-        caches/ULT.h
         caches/LRU.cpp
         caches/LRU.h
         caches/RR.cpp
@@ -23,6 +21,8 @@ add_executable(
         caches/RLRU.h
         caches/MRU.cpp
         caches/MRU.h
+        caches/ULT.cpp
+        caches/ULT.h
 
         testers/tester.h
         testers/impl_tester.h
@@ -31,4 +31,7 @@ add_executable(
         testers/belady_tester.cpp
 
         tests.cpp
+        tests.h
+
+        main.cpp
 )

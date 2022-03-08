@@ -13,6 +13,8 @@ private:
     std::unordered_map<int, int> freq;
     int csize; // maximum capacity of cache
 
+    std::list<int>::iterator leastFreq();
+
 public:
     explicit LFU(int);
 

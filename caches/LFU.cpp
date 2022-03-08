@@ -11,19 +11,19 @@ bool LFU::request(int x) {
 
   // not present in cache
   if (ma.find(x) == ma.end()) {
-    freq[x] = 0; //starting freq
     missed = true;
     int f = 0; //used to update freq
 
     // cache is full
     if (dq.size() == csize) {
       // delete least freq used element
-      int lf = leastFreq();
-      f = freq[lf];
-      dq.erase(ma[lf]);
-      ma.erase(lf);
-      freq.erase(lf);
+      auto lf = leastFreq();
+      ma.erase(*lf);
+      freq.erase(*lf);
+      dq.erase(lf);
     }
+
+    freq[x] = 0; //starting freq
   } else { // present in cache
     dq.erase(ma[x]);
   }
@@ -45,11 +45,14 @@ void LFU::print_entries() {
   std::cout << std::endl;
 }
 
-int LFU::leastFreq() {
-    int min = 0; //arbitrarily large value
-    for(int i = 0; i < dq.size(); i++){
-        if(freq[dq[min]] > freq[dq[i]])
-            min = i;
+std::list<int>::iterator LFU::leastFreq() {
+  auto min_it = dq.begin();
+
+  for (auto it = dq.begin(); it != dq.end(); it++) {
+    if (freq[*it] < freq[*min_it]) {
+      min_it = it;
     }
-    return min;
+  }
+
+  return min_it;
 }

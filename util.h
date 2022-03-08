@@ -12,7 +12,7 @@ std::vector<int> gen_request_seq(int k, int m) {
 
   std::random_device r;
   std::default_random_engine generator{r()};
-  std::uniform_int_distribution<int> distribution(0, k);
+  std::uniform_int_distribution<int> distribution(0, k - 1);
 
   for (int i = 0; i < m; i++) {
     seq.push_back(distribution(generator));
@@ -35,12 +35,13 @@ std::vector<int> gen_loop_request_seq(int k, int n, int m) {
 
   std::random_device r;
   std::default_random_engine generator{r()};
-  std::uniform_int_distribution<int> distribution(0, k);
   std::minstd_rand aux_distribution{generator()};
+
+  int loop_id = aux_distribution() % (INT32_MAX / k);
 
   for (int i = 0; i < n; i++) {
     for (int j = 0; j < k; j++) {
-      seq.push_back(i * k + distribution(generator));
+      seq.push_back(loop_id * k + j);
     }
 
     for (int j = 0; j < req_after_each_loop; j++) {

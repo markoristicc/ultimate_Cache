@@ -17,6 +17,8 @@ private:
     double avfq = 0; //average frequency
     int csize; // maximum capacity of cache
 
+    std::list<int>::iterator leastFreq();
+
 public:
     explicit ULT(int);
 
