@@ -67,8 +67,8 @@ void ULT::print_entries() {
 
 int ULT::leastFreq() {
     int min = 0; //arbitrarily large value
-    for(int i = 0; i < freq.size(); i++){
-        if(freq[min] > freq[i])
+    for(int i = 0; i < dq.size(); i++){
+        if(freq[dq[min]] > freq[dq[i]])
             min = i;
     }
     return min;
