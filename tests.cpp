@@ -3,6 +3,7 @@
 #include "caches/RLRU.h"
 #include "caches/MRU.h"
 #include "caches/LFU.h"
+#include "caches/ULT.h"
 #include "caches/CMB.h"
 #include "caches/CMB2.h"
 
@@ -38,6 +39,13 @@ void test_with_seq(int capacity, const std::vector<int> &seq) {
   ImplTester _rr_tester{&_rr};
   _rr_tester.test(seq);
   std::cout << _rr_tester.miss_ratio();
+
+  std::cout << " ";
+
+  ULT _ult{capacity};
+  ImplTester _ult_tester{&_ult};
+  _ult_tester.test(seq);
+  std::cout << _ult_tester.miss_ratio();
 
   std::cout << " ";
 
@@ -89,7 +97,7 @@ void test_loop_cmb(int capacity, int k, int n, int m) {
 
   std::vector<double> epsilons{-0.1, 0.1, 1, 2};
 
-  for (auto epsilon : epsilons) {
+  for (auto epsilon: epsilons) {
     CMB _cmb{capacity, epsilon};
     ImplTester _cmb_cache{&_cmb};
     _cmb_cache.test(_seq);

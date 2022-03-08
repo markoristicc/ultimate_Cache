@@ -5,7 +5,7 @@ import pandas
 import subprocess
 
 exec_path = "./cmake-build-debug/main"
-labels = ["Optimal", "LRU", "MRU", "RR", "CMB (e=1)", "CMB2"]
+labels = ["Optimal", "LRU", "MRU", "RR", "ULT", "CMB (e=1)", "CMB2"]
 
 
 def test(test_type: str, configs: list):
@@ -53,6 +53,7 @@ def test_loop():
 
     return dataset, index
 
+
 def test_norm():
     configs = [
         [128, 16, 2400],
@@ -80,6 +81,7 @@ def test_norm():
         index.append(config[1])
 
     return dataset, index
+
 
 def test_cmb():
     cmb_labels = ["Optimal", "e=-0.1", "e=0.1", "e=1", "e=2"]
@@ -110,6 +112,7 @@ def test_cmb():
         index.append(config[1])
 
     return dataset, index
+
 
 if __name__ == "__main__":
     import matplotlib.pyplot as plt
