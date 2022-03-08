@@ -1,6 +1,5 @@
 #include "caches/LRU.h"
 #include "caches/RR.h"
-#include "caches/RLRU.h"
 #include "caches/MRU.h"
 #include "caches/LFU.h"
 #include "caches/ULT.h"
@@ -32,6 +31,13 @@ void test_with_seq(int capacity, const std::vector<int> &seq) {
   ImplTester _mru_tester{&_mru};
   _mru_tester.test(seq);
   std::cout << _mru_tester.miss_ratio();
+
+  std::cout << " ";
+
+  MRU _lfu{capacity};
+  ImplTester _lfu_tester{&_lfu};
+  _lfu_tester.test(seq);
+  std::cout << _lfu_tester.miss_ratio();
 
   std::cout << " ";
 

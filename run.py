@@ -5,7 +5,7 @@ import pandas
 import subprocess
 
 exec_path = "./cmake-build-debug/main"
-labels = ["Optimal", "LRU", "MRU", "RR", "ULT", "CMB (e=1)", "CMB2"]
+labels = ["Optimal", "LRU", "MRU", "LFU", "RR", "ULT", "CMB (e=1)", "CMB2"]
 
 
 def test(test_type: str, configs: list):
