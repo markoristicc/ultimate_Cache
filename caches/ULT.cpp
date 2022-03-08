@@ -27,20 +27,20 @@ bool ULT::request(int x) {
               dq.erase(lf);
               ma.erase(lf);
               freq.erase(lf);
-              avfq += (f - avfq)/(csize-1);
+              avfq -= (f - avfq)/(csize-1);
           } else{
               f = freq[front];
               dq.pop_front();
               ma.erase(front);
               freq.erase(front);
-              avfq += (f - avfq)/(csize-1);
+              avfq -= (f - avfq)/(csize-1);
           }
       } else{
           f = freq[back];
           dq.pop_back();
           ma.erase(last);
           freq.erase(last);
-          avfq += (f - avfq)/(csize-1);
+          avfq -= (f - avfq)/(csize-1);
       }
     }
   } else { // present in cache
