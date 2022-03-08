@@ -11,6 +11,10 @@ add_executable(
         caches/cache.h
         caches/MRU.cpp
         caches/MRU.h
+        caches/LFU.cpp
+        caches/LFU.h
+        caches/ULT.cpp
+        caches/ULT.h
         caches/LRU.cpp
         caches/LRU.h
         caches/RR.cpp
