@@ -24,7 +24,7 @@ bool ULT::request(int x) {
       if(freq[last] > avfq){
           if(freq[front] > avfq){
               f = freq[lf];
-              dq.erase(lf);
+              dq.erase(ma[lf]);
               ma.erase(lf);
               freq.erase(lf);
               avfq -= (f - avfq)/(csize-1);
@@ -36,7 +36,7 @@ bool ULT::request(int x) {
               avfq -= (f - avfq)/(csize-1);
           }
       } else{
-          f = freq[back];
+          f = freq[last];
           dq.pop_back();
           ma.erase(last);
           freq.erase(last);
