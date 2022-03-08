@@ -1,6 +1,7 @@
 #include "caches/LRU.h"
 #include "caches/RR.h"
 #include "caches/RLRU.h"
+#include "caches/MRU.h"
 
 #include "testers/impl_tester.h"
 #include "testers/belady_tester.h"
@@ -9,6 +10,7 @@
 
 #include <iostream>
 
+<<<<<<< HEAD
 void test_LRU(int capacity) {
   auto _seq = gen_request_seq(2000, 10000);
 
@@ -60,6 +62,8 @@ void test_RLRU(int capacity) {
   _belady.test(_seq);
   std::cout << "opt: " << _belady.miss_ratio() << std::endl;
 }
+=======
+>>>>>>> 1b493cec12eec269c57a2cdc86f76dbf3356f60b
 
 void test_all(int capacity, int k, int m) {
   auto _seq = gen_request_seq(k, m);
@@ -84,13 +88,19 @@ void test_all(int capacity, int k, int m) {
   _rr_tester.test(_seq);
   std::cout << "RR: " << _rr_tester.miss_ratio() << std::endl;
 
+  RR _mru{capacity};
+  ImplTester _mru_tester{&_mru};
+  _mru_tester.test(_seq);
+  std::cout << "MRU: " << _mru_tester.miss_ratio() << std::endl;
+
   BeladyTester _belady{capacity};
   _belady.test(_seq);
   std::cout << "opt: " << _belady.miss_ratio() << std::endl;
 }
 
 int main() {
-  test_all(512, 2000, 10000);
+  // Mirrors i7-6700HQ CPU with 128KiB L1D and 1MiB L2
+  test_all(128, 1024, 100000);
 
   return 0;
 }
