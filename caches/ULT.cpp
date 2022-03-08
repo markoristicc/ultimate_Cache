@@ -27,20 +27,20 @@ bool ULT::request(int x) {
               dq.erase(lf);
               ma.erase(lf);
               freq.erase(lf);
-              avfg += (f - avfg)/(csize-1);
+              avfq += (f - avfq)/(csize-1);
           } else{
               f = freq[front];
               dq.pop_front();
               ma.erase(front);
               freq.erase(front);
-              avfg += (f - avfg)/(csize-1);
+              avfq += (f - avfq)/(csize-1);
           }
       } else{
           f = freq[back];
           dq.pop_back();
           ma.erase(last);
           freq.erase(last);
-          avfg += (f - avfg)/(csize-1);
+          avfq += (f - avfq)/(csize-1);
       }
     }
   } else { // present in cache
@@ -51,7 +51,7 @@ bool ULT::request(int x) {
   dq.push_front(x);
   ma[x] = dq.begin();
   freq[x] = freq[x]++;
-  avfg += (freq[x] - avfg)/dq.size();
+  avfq += (freq[x] - avfq)/dq.size();
   return missed;
 }
 
