@@ -93,7 +93,7 @@ void test_loop(int capacity, int k, int n, int m) {
 }
 
 void test_loop_cmb(int capacity, int k, int n, int m) {
-  auto _seq = gen_norm_seq(k, m);
+  auto _seq = gen_loop_request_seq(k, n, m);
 
   BeladyTester _belady{capacity};
   _belady.test(_seq);
