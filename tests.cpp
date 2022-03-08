@@ -10,97 +10,48 @@
 
 #include <iostream>
 
-<<<<<<< HEAD
-void test_LRU(int capacity) {
-  auto _seq = gen_request_seq(2000, 10000);
-
+void test_with_seq(int capacity, const std::vector<int>& seq) {
   LRU _lru{capacity};
   ImplTester _lru_tester{&_lru};
-  _lru_tester.test(_seq);
-  std::cout << "LRU: " << _lru_tester.miss_ratio() << std::endl;
-
-  BeladyTester _belady{capacity};
-  _belady.test(_seq);
-  std::cout << "opt: " << _belady.miss_ratio() << std::endl;
-}
-
-void test_MRU(int capacity) {
-  auto _seq = gen_request_seq(2000, 10000);
-
-  MRU _mru{capacity};
-  ImplTester _mru_tester{&_mru};
-  _mru_tester.test(_seq);
-  std::cout << "MRU: " << _mru_tester.miss_ratio() << std::endl;
-
-  BeladyTester _belady{capacity};
-  _belady.test(_seq);
-  std::cout << "opt: " << _belady.miss_ratio() << std::endl;
-}
-
-void test_RR(int capacity) {
-  auto _seq = gen_request_seq(2000, 10000);
-
-  RR _rr{capacity};
-  ImplTester _rr_tester{&_rr};
-  _rr_tester.test(_seq);
-  std::cout << "RR: " << _rr_tester.miss_ratio() << std::endl;
-
-  BeladyTester _belady{capacity};
-  _belady.test(_seq);
-  std::cout << "opt: " << _belady.miss_ratio() << std::endl;
-}
-
-void test_RLRU(int capacity) {
-  auto _seq = gen_request_seq(2000, 10000);
-
-  RLRU _rlru{capacity};
-  ImplTester _rlru_tester{&_rlru};
-  _rlru_tester.test(_seq);
-  std::cout << "RLRU: " << _rlru_tester.miss_ratio() << std::endl;
-
-  BeladyTester _belady{capacity};
-  _belady.test(_seq);
-  std::cout << "opt: " << _belady.miss_ratio() << std::endl;
-}
-=======
->>>>>>> 1b493cec12eec269c57a2cdc86f76dbf3356f60b
-
-void test_all(int capacity, int k, int m) {
-  auto _seq = gen_request_seq(k, m);
-
-  LRU _lru{capacity};
-  ImplTester _lru_tester{&_lru};
-  _lru_tester.test(_seq);
+  _lru_tester.test(seq);
   std::cout << "LRU: " << _lru_tester.miss_ratio() << std::endl;
 
   MRU _mru{capacity};
   ImplTester _mru_tester{&_mru};
-  _mru_tester.test(_seq);
+  _mru_tester.test(seq);
   std::cout << "MRU: " << _mru_tester.miss_ratio() << std::endl;
 
   RLRU _rlru{capacity};
   ImplTester _rlru_tester{&_rlru};
-  _rlru_tester.test(_seq);
+  _rlru_tester.test(seq);
   std::cout << "RLRU: " << _rlru_tester.miss_ratio() << std::endl;
 
   RR _rr{capacity};
   ImplTester _rr_tester{&_rr};
-  _rr_tester.test(_seq);
+  _rr_tester.test(seq);
   std::cout << "RR: " << _rr_tester.miss_ratio() << std::endl;
 
-  RR _mru{capacity};
-  ImplTester _mru_tester{&_mru};
-  _mru_tester.test(_seq);
-  std::cout << "MRU: " << _mru_tester.miss_ratio() << std::endl;
-
   BeladyTester _belady{capacity};
-  _belady.test(_seq);
+  _belady.test(seq);
   std::cout << "opt: " << _belady.miss_ratio() << std::endl;
+}
+
+void test_loop(int capacity, int k, int n, int m) {
+  auto _seq = gen_loop_request_seq(k, n, m);
+
+  std::cout << "testing loops, c=" << capacity << ", k=" << k << ", n=" << n << ", m=" << m << std::endl;
+
+  test_with_seq(capacity, _seq);
 }
 
 int main() {
   // Mirrors i7-6700HQ CPU with 128KiB L1D and 1MiB L2
-  test_all(128, 1024, 100000);
+  test_loop(128, 32, 32, 1500);
+  test_loop(128, 64, 32, 3200);
+  test_loop(128, 128, 32, 6000);
+  test_loop(128, 256, 32, 10000);
+  test_loop(128, 512, 16, 10000);
+  test_loop(128, 1024, 8, 10000);
 
   return 0;
 }
