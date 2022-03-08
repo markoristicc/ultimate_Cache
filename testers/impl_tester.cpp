@@ -8,7 +8,7 @@ ImplTester::ImplTester(Cache *impl)
 void ImplTester::test(const std::vector<int> &seq) {
   for (auto e: seq) {
     m_total += 1;
-    if (m_impl->request(e)) {
+    if (!m_impl->request(e)) {
       m_missed += 1;
     }
   }

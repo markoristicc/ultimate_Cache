@@ -34,6 +34,12 @@ int main(int argc, char *argv[]) {
       int m = parse_arg(argv[4]);
 
       test_random(capacity, k, m);
+    } else if (test_type == "norm") {
+      int capacity = parse_arg(argv[2]);
+      int k = parse_arg(argv[3]);
+      int m = parse_arg(argv[4]);
+
+      test_norm(capacity, k, m);
     } else if (test_type == "loop") {
       int capacity = parse_arg(argv[2]);
       int k = parse_arg(argv[3]);
@@ -41,6 +47,13 @@ int main(int argc, char *argv[]) {
       int m = parse_arg(argv[5]);
 
       test_loop(capacity, k, n, m);
+    } else if (test_type == "loop_cmb") {
+      int capacity = parse_arg(argv[2]);
+      int k = parse_arg(argv[3]);
+      int n = parse_arg(argv[4]);
+      int m = parse_arg(argv[5]);
+
+      test_loop_cmb(capacity, k, n, m);
     }
   }
 

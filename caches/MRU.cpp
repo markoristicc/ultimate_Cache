@@ -7,12 +7,10 @@ MRU::MRU(int n) : csize(n) {}
 
 // requests page x with in the MRU cache
 bool MRU::request(int x) {
-  bool missed = false;
+  bool hit = false;
 
   // not present in cache
   if (ma.find(x) == ma.end()) {
-    missed = true;
-
     // cache is full
     if (dq.size() == csize) {
       // delete most recently used element
@@ -25,6 +23,7 @@ bool MRU::request(int x) {
       ma.erase(front);
     }
   } else { // present in cache
+    hit = true;
     dq.erase(ma[x]);
   }
 
@@ -32,7 +31,7 @@ bool MRU::request(int x) {
   dq.push_front(x);
   ma[x] = dq.begin();
 
-  return missed;
+  return hit;
 }
 
 // Function to display contents of cache

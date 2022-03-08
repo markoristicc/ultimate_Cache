@@ -7,13 +7,10 @@ ULT::ULT(int n) : csize(n) {}
 
 // requests page x with in the ULT cache
 bool ULT::request(int x) {
-  bool missed = false;
+  bool hit = false;
 
   // not present in cache
   if (ma.find(x) == ma.end()) {
-    freq[x] = 0; //starting freq
-    missed = true;
-
     // cache is full
     if (dq.size() == csize) {
       // delete least recently used element
@@ -42,7 +39,10 @@ bool ULT::request(int x) {
         avfq -= (f - avfq) / (csize - 1);
       }
     }
+
+    freq[x] = 0; //starting freq
   } else { // present in cache
+    hit = true;
     dq.erase(ma[x]);
   }
 
@@ -51,7 +51,7 @@ bool ULT::request(int x) {
   ma[x] = dq.begin();
   freq[x] += 1;
   avfq += (freq[x] - avfq) / dq.size();
-  return missed;
+  return hit;
 }
 
 // Function to display contents of cache

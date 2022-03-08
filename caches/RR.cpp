@@ -8,12 +8,10 @@ RR::RR(int capacity)
           m_generator(new std::default_random_engine{std::random_device{}()}) {}
 
 bool RR::request(int element) {
-  bool missed = false;
+  bool hit = false;
 
   auto idx = m_entries.find(element);
   if (idx == m_entries.end()) { // Page fault
-    missed = true;
-
     if (m_entries.size() == m_capacity) { // Cache full
       std::uniform_int_distribution<int> distribution(0, m_capacity - 1);
 
@@ -24,7 +22,9 @@ bool RR::request(int element) {
     }
 
     m_entries.insert(element);
+  } else {
+    hit = true;
   }
 
-  return missed;
+  return hit;
 }

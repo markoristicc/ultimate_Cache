@@ -7,12 +7,10 @@ LRU::LRU(int n) : csize(n) {}
 
 // requests page x with in the LRU cache
 bool LRU::request(int x) {
-  bool missed = false;
+  bool hit = false;
 
   // not present in cache
   if (ma.find(x) == ma.end()) {
-    missed = true;
-
     // cache is full
     if (dq.size() == csize) {
       // delete least recently used element
@@ -25,6 +23,7 @@ bool LRU::request(int x) {
       ma.erase(last);
     }
   } else { // present in cache
+    hit = true;
     dq.erase(ma[x]);
   }
 
@@ -32,7 +31,7 @@ bool LRU::request(int x) {
   dq.push_front(x);
   ma[x] = dq.begin();
 
-  return missed;
+  return hit;
 }
 
 // Function to display contents of cache

@@ -7,11 +7,10 @@ LFU::LFU(int n) : csize(n) {}
 
 // requests page x with in the LFU cache
 bool LFU::request(int x) {
-  bool missed = false;
+  bool hit = false;
 
   // not present in cache
   if (ma.find(x) == ma.end()) {
-    missed = true;
     int f = 0; //used to update freq
 
     // cache is full
@@ -25,6 +24,7 @@ bool LFU::request(int x) {
 
     freq[x] = 0; //starting freq
   } else { // present in cache
+    hit = true;
     dq.erase(ma[x]);
   }
 
@@ -32,7 +32,8 @@ bool LFU::request(int x) {
   dq.push_front(x); //oo need but its how we keep track
   ma[x] = dq.begin();
   freq[x] = freq[x]++;
-  return missed;
+
+  return hit;
 }
 
 // Function to display contents of cache

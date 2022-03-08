@@ -21,6 +21,23 @@ std::vector<int> gen_request_seq(int k, int m) {
   return seq;
 }
 
+// k: stand deviation for requests
+// m: total number of requests
+std::vector<int> gen_norm_seq(int k, int m) {
+  std::vector<int> seq;
+  seq.reserve(m);
+
+  std::random_device r;
+  std::default_random_engine generator{r()};
+  std::normal_distribution<double> distribution(0, k / 2);
+
+  for (int i = 0; i < m; i++) {
+    seq.push_back(distribution(generator));
+  }
+
+  return seq;
+}
+
 // This function generates cache requests
 // based on common sequential access of for-each loops.
 // args:

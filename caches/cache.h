@@ -3,7 +3,7 @@
 
 class Cache {
 public:
-    // Returns true if page fault occurs
+    // Returns true if page is in cache
     virtual bool request(int element) = 0;
 };
 

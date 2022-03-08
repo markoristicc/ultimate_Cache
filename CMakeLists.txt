@@ -24,6 +24,11 @@ add_executable(
         caches/ULT.cpp
         caches/ULT.h
 
+        caches/CMB.cpp
+        caches/CMB.h
+        caches/CMB2.cpp
+        caches/CMB2.h
+
         testers/tester.h
         testers/impl_tester.h
         testers/impl_tester.cpp
