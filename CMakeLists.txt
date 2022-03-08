@@ -9,6 +9,8 @@ add_executable(
         tests
 
         caches/cache.h
+        caches/MRU.cpp
+        caches/MRU.h
         caches/LRU.cpp
         caches/LRU.h
         caches/RR.cpp

@@ -22,6 +22,19 @@ void test_LRU(int capacity) {
   std::cout << "opt: " << _belady.miss_ratio() << std::endl;
 }
 
+void test_MRU(int capacity) {
+  auto _seq = gen_request_seq(2000, 10000);
+
+  MRU _mru{capacity};
+  ImplTester _mru_tester{&_mru};
+  _mru_tester.test(_seq);
+  std::cout << "MRU: " << _mru_tester.miss_ratio() << std::endl;
+
+  BeladyTester _belady{capacity};
+  _belady.test(_seq);
+  std::cout << "opt: " << _belady.miss_ratio() << std::endl;
+}
+
 void test_RR(int capacity) {
   auto _seq = gen_request_seq(2000, 10000);
 
@@ -55,6 +68,11 @@ void test_all(int capacity, int k, int m) {
   ImplTester _lru_tester{&_lru};
   _lru_tester.test(_seq);
   std::cout << "LRU: " << _lru_tester.miss_ratio() << std::endl;
+
+  MRU _mru{capacity};
+  ImplTester _mru_tester{&_mru};
+  _mru_tester.test(_seq);
+  std::cout << "MRU: " << _mru_tester.miss_ratio() << std::endl;
 
   RLRU _rlru{capacity};
   ImplTester _rlru_tester{&_rlru};
