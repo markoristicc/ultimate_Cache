@@ -15,6 +15,8 @@ add_executable(
         caches/RR.h
         caches/RLRU.cpp
         caches/RLRU.h
+        caches/MRU.cpp
+        caches/MRU.h
 
         testers/tester.h
         testers/impl_tester.h
