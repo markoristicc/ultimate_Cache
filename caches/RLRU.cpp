@@ -13,14 +13,14 @@ bool RLRU::request(int element) {
 
     if (m_entries.size() == m_capacity) { // Cache full
       int entries_unmarked = 0;
-      for (auto e : m_entries) {
+      for (auto e: m_entries) {
         if (!m_marks[e]) {
           entries_unmarked += 1;
         }
       }
 
       if (entries_unmarked < 1) { // All marked?
-        for (auto e : m_entries) {
+        for (auto e: m_entries) {
           m_marks[e] = false;
         }
         entries_unmarked = m_capacity;
@@ -30,9 +30,12 @@ bool RLRU::request(int element) {
       int idx_to_pop = distribution(*m_generator);
 
       for (auto it = m_entries.begin(); it != m_entries.end(); it++) {
+        if (m_marks[*it]) { // Marked
+          continue;
+        }
         if (idx_to_pop == 0) {
-          m_entries.erase(it);
           m_marks.erase(*it);
+          m_entries.erase(it);
           break;
         }
         idx_to_pop -= 1;
@@ -41,6 +44,8 @@ bool RLRU::request(int element) {
 
     m_entries.insert(element);
     m_marks.emplace(element, true);
+  } else {
+    m_marks[element] = true;
   }
 
   return missed;
